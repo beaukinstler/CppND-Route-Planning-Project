@@ -71,8 +71,8 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
 
 // helper compare funciton
 bool Compare(RouteModel::Node *n1, RouteModel::Node *n2) {
-  int f1 = n1->g_value + n1->h_value;
-  int f2 = n2->g_value + n2->h_value;
+  float f1 = n1->g_value + n1->h_value;
+  float f2 = n2->g_value + n2->h_value;
   return f1 > f2; 
 }
 
