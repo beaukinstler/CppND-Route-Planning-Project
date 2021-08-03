@@ -3,12 +3,18 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <unordered_map>
 #include <io2d.h>
 #include "route_model.h"
 #include "render.h"
 #include "route_planner.h"
 
 using namespace std::experimental;
+using std::cin;
+using std::cout;
+using std::vector;
+using std::unordered_map;
+using std::string;
 
 static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
 {   
@@ -58,8 +64,27 @@ int main(int argc, const char **argv)
 
 
     float start_x, start_y, end_x, end_y;
-    cout << 'enter starting x, y, and ending x, y coordinates:' << "\n";
-    cin >> start_x >> start_y >> end_x >> end_y;
+    unordered_map<string, float> inputs =  {{"start_x",0}, {"start_y",0}, {"end_x",0},{"end_y",0}};
+    // cout << "enter starting x, y, and ending x, y coordinates:" << "\n";
+    // cin >> start_x >> start_y >> end_x >> end_y;
+    for(auto &in : inputs){
+        cout << "enter " << in.first << ": \n";
+        cin >> in.second;
+        if(in.second >= 0 && in.second <= 100){
+            if(in.first == "end_y"){
+                end_y = in.second;
+            }
+            if(in.first == "end_x"){
+                end_x = in.second;
+            }
+            if(in.first == "start_y"){
+                start_y = in.second;
+            }
+            if(in.first == "start_x"){
+                start_x = in.second;
+            }
+        }
+    }
 
 
     // Build Model.
