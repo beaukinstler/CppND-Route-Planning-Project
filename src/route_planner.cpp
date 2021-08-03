@@ -95,11 +95,29 @@ RouteModel::Node *RoutePlanner::NextNode() {
 //   of the vector, the end node should be the last element.
 
 std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node *current_node) {
+    // DEBUG 
+    // std::cout << "test3:\n";
+
     // Create path_found vector
     distance = 0.0f;
     std::vector<RouteModel::Node> path_found;
+    // std::cout << "test4:\n" << distance << "\n";
 
     // TODO: Implement your solution here.
+
+    while(current_node != nullptr){
+
+        
+        path_found.push_back(*current_node); // push the current node
+        if(current_node->parent != nullptr){
+            distance += current_node->distance(*(current_node->parent));
+        }
+        else{
+            std::cout << "**current node's parrent is null**\n";
+        }
+        current_node = current_node->parent; // move to the parrent. If null, this assumed to be the end.
+    }
+    std::reverse(path_found.begin(), path_found.end());
 
     distance *= m_Model.MetricScale(); // Multiply the distance by the scale of the map to get meters.
     return path_found;
